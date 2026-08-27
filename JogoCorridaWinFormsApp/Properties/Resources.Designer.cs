@@ -103,9 +103,29 @@ namespace JogoCorridaWinFormsApp.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap espantalho1 {
+            get {
+                object obj = ResourceManager.GetObject("espantalho1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Gemini_Generated_Image_2qpyvz2qpyvz2qpy {
             get {
                 object obj = ResourceManager.GetObject("Gemini_Generated_Image_2qpyvz2qpyvz2qpy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Gemini_Generated_Image_2qpyvz2qpyvz2qpy1 {
+            get {
+                object obj = ResourceManager.GetObject("Gemini_Generated_Image_2qpyvz2qpyvz2qpy1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -143,6 +163,16 @@ namespace JogoCorridaWinFormsApp.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap moeda {
+            get {
+                object obj = ResourceManager.GetObject("moeda", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap obstaculo {
             get {
                 object obj = ResourceManager.GetObject("obstaculo", resourceCulture);
@@ -156,6 +186,16 @@ namespace JogoCorridaWinFormsApp.Properties {
         internal static System.Drawing.Bitmap pista_sem_carro {
             get {
                 object obj = ResourceManager.GetObject("pista_sem_carro", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pista_sem_carro1 {
+            get {
+                object obj = ResourceManager.GetObject("pista_sem_carro1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

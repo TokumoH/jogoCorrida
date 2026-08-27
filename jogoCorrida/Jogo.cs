@@ -26,6 +26,8 @@ namespace jogoCorrida
         public int X_inicial { get; set; } = 400;
         public int Y_inicial { get; set; } = 210;
         public int Vidas { get; set; }
+        public int PontosTempo { get; set; } = 0;
+        public int PontosObstaculos { get; set; } = 0;
         public void IniciaJogo()
         {
             Carro = new Elemento();
@@ -41,7 +43,7 @@ namespace jogoCorrida
         }
         public List<Elemento> FabricaObstaculos(int qtd)
         {
-            var tamanho_inicial = 10;
+            var tamanho_inicial = 2;
             var rnd = new Random();
             var obstaculos = new List<Elemento>();
 
@@ -108,13 +110,13 @@ namespace jogoCorrida
             {
                 if (ChecarFaixaElemento(Carro) == p.Faixa)
                 {
-                    if (Carro.PosicaoY - p.PosicaoY <= 50)
+                    if (Carro.PosicaoY - p.PosicaoY <= 80)
                     {
                         Pontuacao++;
-                        p.PosicaoY = 210;
-                        p.PosicaoX = 405;
-                        p.Largura = 10;
-                        p.Altura = 10;
+                        p.PosicaoY = Y_inicial;
+                        p.PosicaoX = X_inicial;
+                        p.Largura = 2;
+                        p.Altura = 2;
                         return true;
                     }
                 }
@@ -128,9 +130,13 @@ namespace jogoCorrida
             {
                 if(ChecarFaixaElemento(Carro) == ob.Faixa)
                 {
-                    if(Carro.PosicaoY - ob.PosicaoY <= 50)
+                    if(Carro.PosicaoY - ob.PosicaoY <= 90)
 
                     {
+                        ob.PosicaoY = Y_inicial;
+                        ob.PosicaoX = X_inicial;
+                        ob.Largura = 2;
+                        ob.Altura = 2;
                         return true;
                     }
                 }
@@ -143,35 +149,63 @@ namespace jogoCorrida
         {
             return true;
         }
-
+        public async void VerificarFimPercurso()
+        {
+            foreach (var ob in Obstaculos)
+            {
+                if (Carro.PosicaoY - ob.PosicaoY <= 80)
+                {
+                    
+                    ob.Altura = 2;
+                    ob.Largura = 2;
+                    ob.PosicaoY = Y_inicial;
+                    ob.PosicaoX = X_inicial;
+                    PontosObstaculos += 10;
+                    await Task.Delay(4000);
+                }
+            }
+            foreach (var p in Pontos)
+            {
+                if (Carro.PosicaoY - p.PosicaoY <= 80)
+                {
+                    p.Altura = 2;
+                    p.Largura = 2;
+                    p.PosicaoY = Y_inicial;
+                    p.PosicaoX = X_inicial;
+                    await Task.Delay(4000);
+                }
+            }
+        }
+        public int PontuacaoTempo(int tempoAtual)
+        {
+            PontosTempo = (tempoAtual * 10);
+            return PontosTempo;
+        }
         public async void MovimentarObstaculos(List<Elemento> Props)
         {
             foreach (var ob in Props)
             {
-                await Task.Delay(1200);
-                ob.Largura += 10;
-                ob.Altura += 10;
+                
+                var rnd = new Random();
+                var del = rnd.Next(7000, 9000);
+                await Task.Delay(del);
+                
+                ob.Largura += 2;
+                ob.Altura += 2;
                 if (ob.Faixa == 1)
                 {
-                    ob.PosicaoX -= 15;
-                    ob.PosicaoY += 10;
+                    ob.PosicaoX -= 3;
+                    ob.PosicaoY += 2;
                 }
                 else if (ob.Faixa == 2)
                 {
-                    ob.PosicaoX -= 5;
-                    ob.PosicaoY += 10;
+                    ob.PosicaoX -= 1;
+                    ob.PosicaoY += 2;
                 }
                 else if (ob.Faixa == 3)
                 {
-                    ob.PosicaoX += 5;
-                    ob.PosicaoY += 10;
-                }
-                if(Carro.PosicaoY - ob.PosicaoY <= 40)
-                { 
-                    ob.Altura = 10;
-                    ob.Largura = 10;
-                    ob.PosicaoY = Y_inicial;
-                    ob.PosicaoX = X_inicial;
+                    ob.PosicaoX += 1;
+                    ob.PosicaoY += 2;
                 }
             }
             

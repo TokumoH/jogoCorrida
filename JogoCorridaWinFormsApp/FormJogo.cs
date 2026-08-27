@@ -1,4 +1,5 @@
 using jogoCorrida;
+using System.Media;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace JogoCorridaWinFormsApp
@@ -12,9 +13,12 @@ namespace JogoCorridaWinFormsApp
         List<PictureBox> pictureBoxesP = [];
         List<PictureBox> pictureBoxesC = [];
 
-        public FormJogo()
+        public FormJogo(String nivel)
         {
+            DoubleBuffered = true;
+            
             InitializeComponent();
+            TocarSomCorrida();
             jogo = new Jogo
             {
                 Faixa1Inicio = 200,
@@ -31,12 +35,12 @@ namespace JogoCorridaWinFormsApp
             jogo.Carro.PosicaoX = jogo.PosicionaObjeto(1);
             jogo.Carro.Altura = 200;
             jogo.Carro.Largura = 180;
-            jogo.Velocidade = 1;
-            jogo.Vidas = 2;
+            jogo.Velocidade = ChecarVelocidade(nivel);
+            jogo.Vidas = ChecarVidas(nivel);
 
             GerarObstaculo();
             GerarPontos();
-          
+
             timerJogo.Enabled = true;
         }
         public void GerarObstaculo()
@@ -45,7 +49,7 @@ namespace JogoCorridaWinFormsApp
             {
                 var picOb = new PictureBox();
                 picOb.BackColor = Color.Transparent;
-                picOb.BackgroundImage = Properties.Resources.obstaculo;
+                picOb.BackgroundImage = null;
                 picOb.BackgroundImageLayout = ImageLayout.Stretch;
                 pictureBoxesOb.Add(picOb);
                 this.Controls.Add(picOb);
@@ -57,13 +61,13 @@ namespace JogoCorridaWinFormsApp
             {
                 var picPt = new PictureBox();
                 picPt.BackColor = Color.Transparent;
-                picPt.BackgroundImage = Properties.Resources.images_removebg_preview;
+                picPt.BackgroundImage = null;
                 picPt.BackgroundImageLayout = ImageLayout.Stretch;
                 pictureBoxesP.Add(picPt);
                 this.Controls.Add(picPt);
             }
         }
-       
+
         private void FormJogo_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Left && jogo.Posicao > 1)
@@ -76,7 +80,7 @@ namespace JogoCorridaWinFormsApp
             }
         }
 
-        private void timerJogo_Tick(object sender, EventArgs e)
+        private async void timerJogo_Tick(object sender, EventArgs e)
         {
             picCarroCorrida.Location = new Point(jogo.Carro.PosicaoX, jogo.Carro.PosicaoY);
             var i = 0;
@@ -86,17 +90,28 @@ namespace JogoCorridaWinFormsApp
             {
                 if (ob.Largura >= 10)
                 {
-                    pictureBoxesOb[i].Location = new Point(ob.PosicaoX, ob.PosicaoY);
-                    pictureBoxesOb[i].Size = new Size(ob.Altura, ob.Largura);
+                    pictureBoxesOb[i].BackgroundImage = Properties.Resources.obstaculo;
                 }
+                else
+                {
+                    pictureBoxesOb[i].BackgroundImage = null;
+                }
+                pictureBoxesOb[i].Location = new Point(ob.PosicaoX, ob.PosicaoY);
+                pictureBoxesOb[i].Size = new Size(ob.Altura, ob.Largura);
+
                 i++;
             }
             foreach (var p in jogo.Pontos)
             {
+                pictureBoxesP[j].Location = new Point(p.PosicaoX, p.PosicaoY);
+                pictureBoxesP[j].Size = new Size(p.Altura, p.Largura);
                 if (p.Largura >= 10)
                 {
-                    pictureBoxesP[j].Location = new Point(p.PosicaoX, p.PosicaoY);
-                    pictureBoxesP[j].Size = new Size(p.Altura, p.Largura);
+                    pictureBoxesP[j].BackgroundImage = Properties.Resources.moeda;
+                }
+                else
+                {
+                    pictureBoxesP[j].BackgroundImage = null;
                 }
                 j++;
             }
@@ -104,29 +119,97 @@ namespace JogoCorridaWinFormsApp
             if ((DateTime.Now - tempoUltimaMovimentaca).Milliseconds >= jogo.Velocidade)
             {
                 tempoUltimaMovimentaca = DateTime.Now;
+                jogo.VerificarFimPercurso();
                 jogo.MovimentarObstaculos(jogo.Obstaculos);
+                await Task.Delay(5000);
                 jogo.MovimentarObstaculos(jogo.Pontos);
-                atualizarInterface();
+                AtualizarInterface();
             }
             if (jogo.ChecarColisao())
             {
                 //GameOver();
                 //TocarSom();
+                TocarSomBatida();
+                await Task.Delay(1000);
+
                 --jogo.Vidas;
+                
                 if (jogo.Vidas == 0)
                 {
-                    Application.Exit();
+                    Application.Restart();
+                }
+                else
+                {
+                    TocarSomCorrida();
                 }
             }
             jogo.ChecarPontuacao();
             Application.DoEvents();
         }
-        private void atualizarInterface()
+        private int ChecarVelocidade(String vel)
+        {
+            int newVel = 0;
+            if(vel == "Facil")
+            {
+                newVel = 200;
+            }
+            else if(vel == "Medio")
+            {
+                newVel = 100;
+            }
+            else if (vel == "Dificil")
+            {
+                newVel = 50;
+            }
+            return newVel;
+        }
+        private int ChecarVidas(String vel)
+        {
+            int newVida = 5;
+            if (vel == "Facil")
+            {
+                newVida = 5;
+            }
+            else if (vel == "Medio")
+            {
+                newVida = 2;
+            }
+            else if (vel == "Dificil")
+            {
+                newVida = 1;
+            }
+            return newVida;
+        }
+        
+        private void GameOver()
+        {
+            var picOver = new PictureBox();
+            picOver.Size = new Size(800, 500);
+            picOver.Location = new Point(0, 0);
+            //cOver.BackgroundImage = Properties.Resources.
+        }
+        private void AtualizarInterface()
         {
             int tempoAtual = 0;
-            tempoAtual += (DateTime.Now - comeco).Seconds;
-            labelPontos.Text = $"Pontos: {jogo.Pontuacao}";
+            tempoAtual += (DateTime.Now - comeco).TotalMinutes;
+            int pontos = jogo.PontuacaoTempo(tempoAtual);
+            labelPontos.Text = $"Moedas Coletadas: {jogo.Pontuacao}";
             labelTimer.Text = $"Tempo de Jogo: {tempoAtual}";
+            labelVidas.Text = $"Vidas Restantes: {jogo.Vidas}";
+            labelPontosTempo.Text = $"Pontuação por Tempo: {pontos}";
+            labelPontosObstaculos.Text = $"Pontos por Obstaculos: {jogo.PontosObstaculos}";
+        }
+        private void TocarSomBatida()
+        {
+            SoundPlayer sp = new SoundPlayer();
+            sp.SoundLocation = "C:\\Users\\hidek\\source\\repos\\jogoCorrida\\JogoCorridaWinFormsApp\\Resources\\crashSOund.wav";
+            sp.Play();
+        }
+        private void TocarSomCorrida()
+        {
+            SoundPlayer sp = new SoundPlayer();
+            sp.SoundLocation = "C:\\Users\\hidek\\source\\repos\\jogoCorrida\\JogoCorridaWinFormsApp\\Resources\\tekuMusic.wav";
+            sp.PlayLooping();
         }
     }
 }
