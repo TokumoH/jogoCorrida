@@ -93,6 +93,16 @@ namespace JogoCorridaWinFormsApp.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap espantalho {
+            get {
+                object obj = ResourceManager.GetObject("espantalho", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Gemini_Generated_Image_2qpyvz2qpyvz2qpy {
             get {
                 object obj = ResourceManager.GetObject("Gemini_Generated_Image_2qpyvz2qpyvz2qpy", resourceCulture);
@@ -103,9 +113,29 @@ namespace JogoCorridaWinFormsApp.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap howl {
+            get {
+                object obj = ResourceManager.GetObject("howl", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap images_removebg_preview {
             get {
                 object obj = ResourceManager.GetObject("images-removebg-preview", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap kiki {
+            get {
+                object obj = ResourceManager.GetObject("kiki", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -36,12 +36,12 @@ namespace jogoCorrida
             Carro.PosicaoY = YMaximo - 120;
 
             Obstaculos = FabricaObstaculos(3);
-            Pontos = FabricaObstaculos(3);
+            Pontos = FabricaObstaculos(2);
 
         }
         public List<Elemento> FabricaObstaculos(int qtd)
         {
-            var tamanho_inicial = 0;
+            var tamanho_inicial = 10;
             var rnd = new Random();
             var obstaculos = new List<Elemento>();
 
@@ -144,11 +144,11 @@ namespace jogoCorrida
             return true;
         }
 
-        public void MovimentarObstaculos()
+        public async void MovimentarObstaculos(List<Elemento> Props)
         {
-            var rnd = new Random();
-            foreach (var ob in Obstaculos)
+            foreach (var ob in Props)
             {
+                await Task.Delay(1200);
                 ob.Largura += 10;
                 ob.Altura += 10;
                 if (ob.Faixa == 1)
@@ -174,35 +174,7 @@ namespace jogoCorrida
                     ob.PosicaoX = X_inicial;
                 }
             }
-            foreach(var p in Pontos)
-            {
-                p.Largura += 10;
-                p.Altura += 10;
-                if (p.Faixa == 1)
-                {
-                    p.PosicaoX -= 15;
-                    p.PosicaoY += 10;
-                }
-                else if (p.Faixa == 2)
-                {
-                    p.PosicaoX -= 5;
-                    p.PosicaoY += 10;
-                }
-                else if (p.Faixa == 3)
-                {
-                    p.PosicaoX += 5;
-                    p.PosicaoY += 10;
-                }
-                
-                if (Carro.PosicaoY - p.PosicaoY <= 40)
-                {
-
-                    p.Largura = 10;
-                    p.Altura = 10;
-                    p.PosicaoX = X_inicial;
-                    p.PosicaoY = Y_inicial;
-                }
-            }
+            
         }
     }
 }

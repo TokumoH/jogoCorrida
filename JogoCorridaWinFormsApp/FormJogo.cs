@@ -7,8 +7,10 @@ namespace JogoCorridaWinFormsApp
     {
         Jogo jogo;
         DateTime tempoUltimaMovimentaca = DateTime.Now;
+        DateTime comeco = DateTime.Now;
         List<PictureBox> pictureBoxesOb = [];
         List<PictureBox> pictureBoxesP = [];
+        List<PictureBox> pictureBoxesC = [];
 
         public FormJogo()
         {
@@ -29,44 +31,46 @@ namespace JogoCorridaWinFormsApp
             jogo.Carro.PosicaoX = jogo.PosicionaObjeto(1);
             jogo.Carro.Altura = 200;
             jogo.Carro.Largura = 180;
-            jogo.Velocidade = 10;
+            jogo.Velocidade = 1;
             jogo.Vidas = 2;
 
             GerarObstaculo();
             GerarPontos();
+          
             timerJogo.Enabled = true;
         }
         public void GerarObstaculo()
         {
-            foreach (var ob in jogo.Obstaculos) 
+            foreach (var ob in jogo.Obstaculos)
             {
                 var picOb = new PictureBox();
                 picOb.BackColor = Color.Transparent;
                 picOb.BackgroundImage = Properties.Resources.obstaculo;
                 picOb.BackgroundImageLayout = ImageLayout.Stretch;
-                pictureBoxesOb.Add(picOb);  
-                this.Controls.Add(picOb); 
+                pictureBoxesOb.Add(picOb);
+                this.Controls.Add(picOb);
             }
         }
         public void GerarPontos()
         {
-            foreach (var pt in jogo.Pontos) 
+            foreach (var pt in jogo.Pontos)
             {
                 var picPt = new PictureBox();
                 picPt.BackColor = Color.Transparent;
                 picPt.BackgroundImage = Properties.Resources.images_removebg_preview;
                 picPt.BackgroundImageLayout = ImageLayout.Stretch;
-                pictureBoxesP.Add(picPt);  
-                this.Controls.Add(picPt); 
+                pictureBoxesP.Add(picPt);
+                this.Controls.Add(picPt);
             }
         }
+       
         private void FormJogo_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Left && jogo.Posicao > 1)
+            if (e.KeyCode == Keys.Left && jogo.Posicao > 1)
             {
                 jogo.Carro.PosicaoX = jogo.PosicionaObjeto(--jogo.Posicao);
             }
-            else if(e.KeyCode == Keys.Right && jogo.Posicao < 3)
+            else if (e.KeyCode == Keys.Right && jogo.Posicao < 3)
             {
                 jogo.Carro.PosicaoX = jogo.PosicionaObjeto(++jogo.Posicao);
             }
@@ -77,15 +81,13 @@ namespace JogoCorridaWinFormsApp
             picCarroCorrida.Location = new Point(jogo.Carro.PosicaoX, jogo.Carro.PosicaoY);
             var i = 0;
             var j = 0;
-            DateTime tempoAuxOb1 = DateTime.Now;
+
             foreach (var ob in jogo.Obstaculos)
             {
-
                 if (ob.Largura >= 10)
                 {
                     pictureBoxesOb[i].Location = new Point(ob.PosicaoX, ob.PosicaoY);
                     pictureBoxesOb[i].Size = new Size(ob.Altura, ob.Largura);
-
                 }
                 i++;
             }
@@ -102,13 +104,15 @@ namespace JogoCorridaWinFormsApp
             if ((DateTime.Now - tempoUltimaMovimentaca).Milliseconds >= jogo.Velocidade)
             {
                 tempoUltimaMovimentaca = DateTime.Now;
-                jogo.MovimentarObstaculos();
+                jogo.MovimentarObstaculos(jogo.Obstaculos);
+                jogo.MovimentarObstaculos(jogo.Pontos);
+                atualizarInterface();
             }
             if (jogo.ChecarColisao())
             {
                 //GameOver();
                 //TocarSom();
-                jogo.Vidas -= 1;
+                --jogo.Vidas;
                 if (jogo.Vidas == 0)
                 {
                     Application.Exit();
@@ -117,6 +121,12 @@ namespace JogoCorridaWinFormsApp
             jogo.ChecarPontuacao();
             Application.DoEvents();
         }
-
+        private void atualizarInterface()
+        {
+            int tempoAtual = 0;
+            tempoAtual += (DateTime.Now - comeco).Seconds;
+            labelPontos.Text = $"Pontos: {jogo.Pontuacao}";
+            labelTimer.Text = $"Tempo de Jogo: {tempoAtual}";
+        }
     }
 }
