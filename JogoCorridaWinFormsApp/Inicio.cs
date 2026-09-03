@@ -17,25 +17,34 @@ namespace JogoCorridaWinFormsApp
 
         private void buttonHard_Click(object sender, EventArgs e)
         {
+
             var jogo = new FormJogo("Dificil");
             jogo.ShowDialog();
+
         }
 
         private void buttonEasy_Click(object sender, EventArgs e)
         {
             var jogo = new FormJogo("Facil");
             jogo.ShowDialog();
+
         }
 
         private void buttonMedium_Click(object sender, EventArgs e)
         {
             var jogo = new FormJogo("Medio");
             jogo.ShowDialog();
+
         }
 
         private void buttonQuit_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void groupBoxSelect_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -38,21 +38,24 @@
             // 
             // groupBoxSelect
             // 
+            groupBoxSelect.BackColor = Color.Transparent;
             groupBoxSelect.Controls.Add(buttonQuit);
             groupBoxSelect.Controls.Add(buttonHard);
             groupBoxSelect.Controls.Add(buttonMedium);
             groupBoxSelect.Controls.Add(buttonEasy);
             groupBoxSelect.Font = new Font("Segoe UI", 20F);
-            groupBoxSelect.Location = new Point(50, 38);
+            groupBoxSelect.ForeColor = Color.White;
+            groupBoxSelect.Location = new Point(48, 29);
             groupBoxSelect.Name = "groupBoxSelect";
-            groupBoxSelect.Size = new Size(300, 319);
+            groupBoxSelect.Size = new Size(648, 319);
             groupBoxSelect.TabIndex = 0;
             groupBoxSelect.TabStop = false;
             groupBoxSelect.Text = "Selecione o nível";
+            groupBoxSelect.Enter += groupBoxSelect_Enter;
             // 
             // buttonQuit
             // 
-            buttonQuit.BackColor = Color.White;
+            buttonQuit.BackColor = Color.DimGray;
             buttonQuit.Location = new Point(6, 253);
             buttonQuit.Name = "buttonQuit";
             buttonQuit.Size = new Size(140, 60);
@@ -98,6 +101,8 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackgroundImage = Properties.Resources.INITIALD;
+            BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(782, 453);
             Controls.Add(groupBoxSelect);
             Name = "Inicio";

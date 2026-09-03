@@ -9,14 +9,16 @@ namespace JogoCorridaWinFormsApp
         Jogo jogo;
         DateTime tempoUltimaMovimentaca = DateTime.Now;
         DateTime comeco = DateTime.Now;
+        DateTime flagContagem = DateTime.Now;
         List<PictureBox> pictureBoxesOb = [];
         List<PictureBox> pictureBoxesP = [];
         List<PictureBox> pictureBoxesC = [];
+        bool flagTempo = true;
 
         public FormJogo(String nivel)
         {
             DoubleBuffered = true;
-            
+
             InitializeComponent();
             TocarSomCorrida();
             jogo = new Jogo
@@ -35,9 +37,8 @@ namespace JogoCorridaWinFormsApp
             jogo.Carro.PosicaoX = jogo.PosicionaObjeto(1);
             jogo.Carro.Altura = 200;
             jogo.Carro.Largura = 180;
-            jogo.Velocidade = ChecarVelocidade(nivel);
-            jogo.Vidas = ChecarVidas(nivel);
 
+            ChecarNivel(nivel);
             GerarObstaculo();
             GerarPontos();
 
@@ -85,15 +86,27 @@ namespace JogoCorridaWinFormsApp
             picCarroCorrida.Location = new Point(jogo.Carro.PosicaoX, jogo.Carro.PosicaoY);
             var i = 0;
             var j = 0;
-
             foreach (var ob in jogo.Obstaculos)
             {
                 if (ob.Largura >= 10)
                 {
-                    pictureBoxesOb[i].BackgroundImage = Properties.Resources.obstaculo;
+                    int qual = ob.Identificacao;
+                    if (qual == 1)
+                    {
+                        pictureBoxesOb[i].BackgroundImage = Properties.Resources.obstaculo;
+                    }
+                    else if (qual == 2)
+                    {
+                        pictureBoxesOb[i].BackgroundImage = Properties.Resources.cone;
+                    }
+                    else
+                    {
+                        pictureBoxesOb[i].BackgroundImage = Properties.Resources.cacto;
+                    }
                 }
                 else
                 {
+
                     pictureBoxesOb[i].BackgroundImage = null;
                 }
                 pictureBoxesOb[i].Location = new Point(ob.PosicaoX, ob.PosicaoY);
@@ -119,85 +132,107 @@ namespace JogoCorridaWinFormsApp
             if ((DateTime.Now - tempoUltimaMovimentaca).Milliseconds >= jogo.Velocidade)
             {
                 tempoUltimaMovimentaca = DateTime.Now;
-                jogo.VerificarFimPercurso();
-                jogo.MovimentarObstaculos(jogo.Obstaculos);
-                await Task.Delay(5000);
-                jogo.MovimentarObstaculos(jogo.Pontos);
+                if ((flagContagem - tempoUltimaMovimentaca).Milliseconds >= 3000)
+                {
+                    flagTempo = true;
+                    flagContagem = DateTime.Now;
+                }
+                jogo.MovimentarObstaculos(jogo.Obstaculos, flagTempo);
+                jogo.MovimentarObstaculos(jogo.Pontos, flagTempo);
                 AtualizarInterface();
+                if (jogo.PontosTempo >= 100 && jogo.FaseAtual == "Fase 1")
+                {
+                    await 
+                    TrocaFaseVisual();
+                    TrocaFaseDificuldade();
+                    jogo.FaseAtual = "Fase 2";
+                }
+                flagTempo = false;
             }
             if (jogo.ChecarColisao())
             {
                 //GameOver();
                 //TocarSom();
-                TocarSomBatida();
-                await Task.Delay(1000);
+                EfeitoBatida();
+                await Task.Delay(2000);
+
 
                 --jogo.Vidas;
-                
+
                 if (jogo.Vidas == 0)
                 {
                     Application.Restart();
                 }
                 else
                 {
+
                     TocarSomCorrida();
                 }
             }
             jogo.ChecarPontuacao();
             Application.DoEvents();
         }
-        private int ChecarVelocidade(String vel)
+        private async void EfeitoBatida()
         {
-            int newVel = 0;
-            if(vel == "Facil")
-            {
-                newVel = 200;
-            }
-            else if(vel == "Medio")
-            {
-                newVel = 100;
-            }
-            else if (vel == "Dificil")
-            {
-                newVel = 50;
-            }
-            return newVel;
+            TocarSomBatida();
+            timerJogo.Stop();
+            picCarroCorrida.BackgroundImage = null;
+            pictureBoxCarroBatido.Location = new Point(jogo.Carro.PosicaoX, jogo.Carro.PosicaoY);
+            pictureBoxCarroBatido.Size = new Size(92, 71);
+            pictureBoxCarroBatido.BackgroundImage = Properties.Resources.carroBatido;
+            await Task.Delay(2000);
+            pictureBoxCarroBatido.Location = new Point(0, 0);
+            pictureBoxCarroBatido.Size = new Size(0, 0);
+            pictureBoxCarroBatido.BackgroundImage = null;
+            picCarroCorrida.BackgroundImage = Properties.Resources.carroPNG;
+            timerJogo.Start();
+
         }
-        private int ChecarVidas(String vel)
+        private void ChecarNivel(String vel)
         {
-            int newVida = 5;
             if (vel == "Facil")
             {
-                newVida = 5;
+                jogo.Vidas = 5;
+                jogo.Velocidade = 200;
+                jogo.numeroSorte = 150;
             }
             else if (vel == "Medio")
             {
-                newVida = 2;
+                jogo.Vidas = 2;
+                jogo.Velocidade = 100;
+                jogo.numeroSorte = 100;
             }
             else if (vel == "Dificil")
             {
-                newVida = 1;
+                jogo.Vidas = 1;
+                jogo.Velocidade = 50;
+                jogo.numeroSorte = 80;
             }
-            return newVida;
-        }
-        
-        private void GameOver()
-        {
-            var picOver = new PictureBox();
-            picOver.Size = new Size(800, 500);
-            picOver.Location = new Point(0, 0);
-            //cOver.BackgroundImage = Properties.Resources.
+            else
+            {
+                jogo.Velocidade = 100;
+                jogo.Vidas = 2;
+                jogo.numeroSorte = 100;
+            }
         }
         private void AtualizarInterface()
         {
-            int tempoAtual = 0;
+            double tempoAtual = 0;
             tempoAtual += (DateTime.Now - comeco).TotalMinutes;
             int pontos = jogo.PontuacaoTempo(tempoAtual);
+            tempoAtual = CalcularMinutos(tempoAtual);
             labelPontos.Text = $"Moedas Coletadas: {jogo.Pontuacao}";
-            labelTimer.Text = $"Tempo de Jogo: {tempoAtual}";
+            labelTimer.Text = $"Tempo de Jogo: {Math.Round(tempoAtual, 2)}";
             labelVidas.Text = $"Vidas Restantes: {jogo.Vidas}";
             labelPontosTempo.Text = $"Pontuação por Tempo: {pontos}";
             labelPontosObstaculos.Text = $"Pontos por Obstaculos: {jogo.PontosObstaculos}";
+        }
+        private double CalcularMinutos(double tempo)
+        {
+            double segundos = 0;
+            segundos = tempo * 60;
+            return segundos;
+
         }
         private void TocarSomBatida()
         {
@@ -210,6 +245,34 @@ namespace JogoCorridaWinFormsApp
             SoundPlayer sp = new SoundPlayer();
             sp.SoundLocation = "C:\\Users\\hidek\\source\\repos\\jogoCorrida\\JogoCorridaWinFormsApp\\Resources\\tekuMusic.wav";
             sp.PlayLooping();
+        }
+        private void TrocaFaseDificuldade()
+        {
+            jogo.Velocidade -= 20;
+            
+        }
+        private async Task TrocaFaseVisual()
+        {
+            timerJogo.Stop();
+            labelHeadingFase.Font = new Font("Palatino Linotype", 72F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelHeadingFase.Location = new Point(209, 152);
+            labelHeadingFase.Name = "labelHeadingFase";
+            labelHeadingFase.Size = new Size(398, 162);
+            labelHeadingFase.TabIndex = 11;
+            labelHeadingFase.Text = "Fase 2";
+            labelHeadingFase.TextAlign = ContentAlignment.MiddleCenter;
+            await Task.Delay(1000);
+            BackgroundImage = Properties.Resources.fundoNoite;
+            await Task.Delay(1000);
+            labelHeadingFase.Font = new Font("Palatino Linotype", 1F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelHeadingFase.Location = new Point(0, 0);
+            labelHeadingFase.Name = "labelHeadingFase";
+            labelHeadingFase.Size = new Size(0, 0);
+            labelHeadingFase.TabIndex = 0;
+            labelHeadingFase.Text = null;
+            labelHeadingFase.TextAlign = ContentAlignment.MiddleCenter;
+            await Task.Delay(1000);
+            timerJogo.Start();
         }
     }
 }

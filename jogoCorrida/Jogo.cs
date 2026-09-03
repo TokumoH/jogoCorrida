@@ -28,7 +28,10 @@ namespace jogoCorrida
         public int Vidas { get; set; }
         public int PontosTempo { get; set; } = 0;
         public int PontosObstaculos { get; set; } = 0;
-        public void IniciaJogo()
+        public int numeroSorte { get; set; } = 100;
+        public int FlagTimer { get; set; } = 0;
+        public String FaseAtual { get; set; } = "Fase 1";
+        public void IniciaJogo() 
         {
             Carro = new Elemento();
             Carro.Tipo = TipoElemento.Carro;
@@ -41,6 +44,7 @@ namespace jogoCorrida
             Pontos = FabricaObstaculos(2);
 
         }
+
         public List<Elemento> FabricaObstaculos(int qtd)
         {
             var tamanho_inicial = 2;
@@ -51,6 +55,11 @@ namespace jogoCorrida
             { 
                 var ob = new Elemento();
                 var faixa = rnd.Next(1, 4);
+                var tipo = rnd.Next(1, 4);
+                var sorte = rnd.Next(1, numeroSorte);
+                ob.Sorte = sorte;
+                ob.Flag = 0;
+                ob.Identificacao = tipo;
                 ob.Faixa = faixa;
                 ob.PosicaoX = X_inicial;
                 ob.PosicaoY = Y_inicial;
@@ -130,7 +139,7 @@ namespace jogoCorrida
             {
                 if(ChecarFaixaElemento(Carro) == ob.Faixa)
                 {
-                    if(Carro.PosicaoY - ob.PosicaoY <= 90)
+                    if(Carro.PosicaoY - ob.PosicaoY <= 85)
 
                     {
                         ob.PosicaoY = Y_inicial;
@@ -144,69 +153,130 @@ namespace jogoCorrida
 
             return false;
         }
+        public bool VerificaFaixa(int val)
+        {
+            foreach (var ob in Obstaculos)
+            {
+                if(ob.Flag == 1)
+                {
+                    if(ob.Faixa == val)
+                    {
+                        return true;
 
+                    }
+                }
+            }
+            foreach (var p in Pontos)
+            {
+                if (p.Flag == 1)
+                {
+                    if (p.Faixa == val)
+                    {
+                        return true;
+                        
+                    }
+                }
+            }
+            return false;
+        }
         public bool VerificaFimJogo()
         {
             return true;
         }
         public async void VerificarFimPercurso()
         {
+            var rnd = new Random();
+            var faixaNova = 0;
             foreach (var ob in Obstaculos)
             {
-                if (Carro.PosicaoY - ob.PosicaoY <= 80)
+                if (Carro.PosicaoY - ob.PosicaoY <= 70)
                 {
-                    
+
+                    faixaNova = rnd.Next(1, 4);
                     ob.Altura = 2;
                     ob.Largura = 2;
+                    ob.Faixa = faixaNova;
                     ob.PosicaoY = Y_inicial;
                     ob.PosicaoX = X_inicial;
                     PontosObstaculos += 10;
-                    await Task.Delay(4000);
+                    ob.Flag = 0;
+                    
                 }
             }
             foreach (var p in Pontos)
             {
-                if (Carro.PosicaoY - p.PosicaoY <= 80)
+                if (Carro.PosicaoY - p.PosicaoY <= 70)
                 {
+                    faixaNova = rnd.Next(1, 4);
+                    if (VerificaFaixa(faixaNova))
+                    {
+                        var faixaAux = 0;
+                        do
+                        {
+                            faixaAux = rnd.Next(1, 4);
+                        } while (!VerificaFaixa(faixaAux));
+                        faixaNova = faixaAux;
+                    }
+                    p.Faixa = faixaNova;
                     p.Altura = 2;
                     p.Largura = 2;
                     p.PosicaoY = Y_inicial;
                     p.PosicaoX = X_inicial;
-                    await Task.Delay(4000);
+                    p.Flag = 0;
+                    
                 }
             }
         }
-        public int PontuacaoTempo(int tempoAtual)
+        public int PontuacaoTempo(double tempoAtual)
         {
-            PontosTempo = (tempoAtual * 10);
+            PontosTempo = (int)(tempoAtual*60) * 10;
             return PontosTempo;
         }
-        public async void MovimentarObstaculos(List<Elemento> Props)
+        public void MovimentarObstaculos(List<Elemento> Props, bool tempo)
         {
+            var i = 0;
+            var rnd = new Random();
+            var sorteio = rnd.Next(1, numeroSorte);
+            var index = 0;
             foreach (var ob in Props)
             {
+                index = ob.Faixa - 1;
+                bool faixaOcupada = false;
+
+                if (tempo)
+                {
+                    faixaOcupada = false;
+                }
+                else
+                {
+                    faixaOcupada = VerificaFaixa(ob.Faixa);
+                }
+
+                VerificarFimPercurso();
+                if((i == 0 || (ob.Sorte == sorteio && !faixaOcupada) || ob.Flag == 1))
+                {
+                    ob.Flag = 1;
+                    ob.Largura += 2;
+                    ob.Altura += 2;
+                    if (ob.Faixa == 1)
+                    {
+                        ob.PosicaoX -= 3;
+                        ob.PosicaoY += 2;
+                    }
+                    else if (ob.Faixa == 2)
+                    {
+                        ob.PosicaoX -= 1;
+                        ob.PosicaoY += 2;
+                    }
+                    else if (ob.Faixa == 3)
+                    {
+                        ob.PosicaoX += 1;
+                        ob.PosicaoY += 2;
+                    }
+                }
                 
-                var rnd = new Random();
-                var del = rnd.Next(7000, 9000);
-                await Task.Delay(del);
+                i++;
                 
-                ob.Largura += 2;
-                ob.Altura += 2;
-                if (ob.Faixa == 1)
-                {
-                    ob.PosicaoX -= 3;
-                    ob.PosicaoY += 2;
-                }
-                else if (ob.Faixa == 2)
-                {
-                    ob.PosicaoX -= 1;
-                    ob.PosicaoY += 2;
-                }
-                else if (ob.Faixa == 3)
-                {
-                    ob.PosicaoX += 1;
-                    ob.PosicaoY += 2;
-                }
             }
             
         }

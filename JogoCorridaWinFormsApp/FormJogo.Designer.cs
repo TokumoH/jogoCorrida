@@ -39,10 +39,13 @@
             labelVidas = new Label();
             labelPontosTempo = new Label();
             labelPontosObstaculos = new Label();
+            pictureBoxCarroBatido = new PictureBox();
+            labelHeadingFase = new Label();
             ((System.ComponentModel.ISupportInitialize)picCarroCorrida).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxEspantalho).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxHowl).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxKiki).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxCarroBatido).BeginInit();
             SuspendLayout();
             // 
             // picCarroCorrida
@@ -142,6 +145,29 @@
             labelPontosObstaculos.TabIndex = 9;
             labelPontosObstaculos.Text = "Pontos por Obstaculos: ";
             // 
+            // pictureBoxCarroBatido
+            // 
+            pictureBoxCarroBatido.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            pictureBoxCarroBatido.BackColor = Color.Transparent;
+            pictureBoxCarroBatido.BackgroundImageLayout = ImageLayout.Stretch;
+            pictureBoxCarroBatido.Cursor = Cursors.No;
+            pictureBoxCarroBatido.Location = new Point(0, 0);
+            pictureBoxCarroBatido.Margin = new Padding(3, 4, 3, 4);
+            pictureBoxCarroBatido.Name = "pictureBoxCarroBatido";
+            pictureBoxCarroBatido.Size = new Size(0, 0);
+            pictureBoxCarroBatido.TabIndex = 10;
+            pictureBoxCarroBatido.TabStop = false;
+            // 
+            // labelHeadingFase
+            // 
+            labelHeadingFase.AutoSize = true;
+            labelHeadingFase.Font = new Font("Palatino Linotype", 1F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelHeadingFase.Location = new Point(0, 0);
+            labelHeadingFase.Name = "labelHeadingFase";
+            labelHeadingFase.Size = new Size(0, 3);
+            labelHeadingFase.TabIndex = 0;
+            labelHeadingFase.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // FormJogo
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -149,6 +175,8 @@
             BackgroundImage = Properties.Resources.Gemini_Generated_Image_2qpyvz2qpyvz2qpy1;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 500);
+            Controls.Add(labelHeadingFase);
+            Controls.Add(pictureBoxCarroBatido);
             Controls.Add(labelPontosObstaculos);
             Controls.Add(labelPontosTempo);
             Controls.Add(labelVidas);
@@ -168,6 +196,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBoxEspantalho).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxHowl).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxKiki).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxCarroBatido).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -183,5 +212,7 @@
         private Label labelVidas;
         private Label labelPontosTempo;
         private Label labelPontosObstaculos;
+        private PictureBox pictureBoxCarroBatido;
+        private Label labelHeadingFase;
     }
 }

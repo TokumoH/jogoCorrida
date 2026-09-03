@@ -63,6 +63,26 @@ namespace JogoCorridaWinFormsApp.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cacto {
+            get {
+                object obj = ResourceManager.GetObject("cacto", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap carroBatido {
+            get {
+                object obj = ResourceManager.GetObject("carroBatido", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap CarroLeclerc_removebg_preview {
             get {
                 object obj = ResourceManager.GetObject("CarroLeclerc-removebg-preview", resourceCulture);
@@ -93,6 +113,16 @@ namespace JogoCorridaWinFormsApp.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cone {
+            get {
+                object obj = ResourceManager.GetObject("cone", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap espantalho {
             get {
                 object obj = ResourceManager.GetObject("espantalho", resourceCulture);
@@ -106,6 +136,16 @@ namespace JogoCorridaWinFormsApp.Properties {
         internal static System.Drawing.Bitmap espantalho1 {
             get {
                 object obj = ResourceManager.GetObject("espantalho1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap fundoNoite {
+            get {
+                object obj = ResourceManager.GetObject("fundoNoite", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -146,6 +186,16 @@ namespace JogoCorridaWinFormsApp.Properties {
         internal static System.Drawing.Bitmap images_removebg_preview {
             get {
                 object obj = ResourceManager.GetObject("images-removebg-preview", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap INITIALD {
+            get {
+                object obj = ResourceManager.GetObject("INITIALD", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -246,6 +296,16 @@ namespace JogoCorridaWinFormsApp.Properties {
         internal static System.Drawing.Bitmap watermarked_img_7094438428650740525_removebg_preview {
             get {
                 object obj = ResourceManager.GetObject("watermarked_img_7094438428650740525-removebg-preview", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap watermarked_img_7094438428650740525_removebg_preview1 {
+            get {
+                object obj = ResourceManager.GetObject("watermarked_img_7094438428650740525-removebg-preview1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
