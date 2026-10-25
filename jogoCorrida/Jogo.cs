@@ -40,7 +40,7 @@ namespace jogoCorrida
 
             Carro.PosicaoY = YMaximo - 120;
 
-            Obstaculos = FabricaObstaculos(3);
+            Obstaculos = FabricaObstaculos(5);
             Pontos = FabricaObstaculos(2);
 
         }
@@ -236,10 +236,15 @@ namespace jogoCorrida
         {
             var i = 0;
             var rnd = new Random();
+            var crescimento = 1;
             var sorteio = rnd.Next(1, numeroSorte);
             var index = 0;
             foreach (var ob in Props)
             {
+                if(ob.Altura >= 200)
+                {
+                    crescimento = 5;
+                }
                 index = ob.Faixa - 1;
                 bool faixaOcupada = false;
 
@@ -256,8 +261,8 @@ namespace jogoCorrida
                 if((i == 0 || (ob.Sorte == sorteio && !faixaOcupada) || ob.Flag == 1))
                 {
                     ob.Flag = 1;
-                    ob.Largura += 2;
-                    ob.Altura += 2;
+                    ob.Largura += 2 * crescimento;
+                    ob.Altura += 2 * crescimento;
                     if (ob.Faixa == 1)
                     {
                         ob.PosicaoX -= 3;
@@ -274,7 +279,7 @@ namespace jogoCorrida
                         ob.PosicaoY += 2;
                     }
                 }
-                
+                crescimento = 1;
                 i++;
                 
             }

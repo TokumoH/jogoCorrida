@@ -45,9 +45,9 @@
             groupBoxSelect.Controls.Add(buttonEasy);
             groupBoxSelect.Font = new Font("Segoe UI", 20F);
             groupBoxSelect.ForeColor = Color.White;
-            groupBoxSelect.Location = new Point(48, 29);
+            groupBoxSelect.Location = new Point(60, 257);
             groupBoxSelect.Name = "groupBoxSelect";
-            groupBoxSelect.Size = new Size(648, 319);
+            groupBoxSelect.Size = new Size(648, 148);
             groupBoxSelect.TabIndex = 0;
             groupBoxSelect.TabStop = false;
             groupBoxSelect.Text = "Selecione o nível";
@@ -56,7 +56,7 @@
             // buttonQuit
             // 
             buttonQuit.BackColor = Color.DimGray;
-            buttonQuit.Location = new Point(6, 253);
+            buttonQuit.Location = new Point(478, 60);
             buttonQuit.Name = "buttonQuit";
             buttonQuit.Size = new Size(140, 60);
             buttonQuit.TabIndex = 4;
@@ -67,7 +67,7 @@
             // buttonHard
             // 
             buttonHard.BackColor = Color.Red;
-            buttonHard.Location = new Point(6, 179);
+            buttonHard.Location = new Point(323, 60);
             buttonHard.Name = "buttonHard";
             buttonHard.Size = new Size(140, 60);
             buttonHard.TabIndex = 3;
@@ -78,7 +78,7 @@
             // buttonMedium
             // 
             buttonMedium.BackColor = Color.Yellow;
-            buttonMedium.Location = new Point(6, 113);
+            buttonMedium.Location = new Point(163, 60);
             buttonMedium.Name = "buttonMedium";
             buttonMedium.Size = new Size(140, 60);
             buttonMedium.TabIndex = 2;
@@ -89,7 +89,7 @@
             // buttonEasy
             // 
             buttonEasy.BackColor = Color.Lime;
-            buttonEasy.Location = new Point(6, 47);
+            buttonEasy.Location = new Point(6, 60);
             buttonEasy.Name = "buttonEasy";
             buttonEasy.Size = new Size(140, 60);
             buttonEasy.TabIndex = 1;
@@ -101,12 +101,14 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = Properties.Resources.INITIALD;
+            BackgroundImage = Properties.Resources.Camarão_Kart__Corrida_ao_Entardecer;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(782, 453);
             Controls.Add(groupBoxSelect);
             Name = "Inicio";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Inicio";
+            Load += Inicio_Load;
             groupBoxSelect.ResumeLayout(false);
             ResumeLayout(false);
         }

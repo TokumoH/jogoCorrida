@@ -14,7 +14,7 @@ namespace jogoCorrida
         public int Identificacao { get; set; }
         public int Sorte { get; set; }
         public int Flag { get; set; }
-
+        public int FlagTimer { get; set; }
         public void Movimentar(int x, int y)
         {
             PosicaoX = x;

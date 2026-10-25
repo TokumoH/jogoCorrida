@@ -10,39 +10,52 @@ namespace JogoCorridaWinFormsApp
 {
     public partial class Inicio : Form
     {
+        String dificuldade = "";
+        bool jogoIniciado = false;
         public Inicio()
         {
-            InitializeComponent();
+            InitializeComponent(); ;
+
         }
 
         private void buttonHard_Click(object sender, EventArgs e)
         {
-
-            var jogo = new FormJogo("Dificil");
-            jogo.ShowDialog();
-
+            dificuldade = "hard";
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
 
         private void buttonEasy_Click(object sender, EventArgs e)
         {
-            var jogo = new FormJogo("Facil");
-            jogo.ShowDialog();
-
+            dificuldade = "easy";
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
 
         private void buttonMedium_Click(object sender, EventArgs e)
         {
-            var jogo = new FormJogo("Medio");
-            jogo.ShowDialog();
-
+            dificuldade = "medium";
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
 
         private void buttonQuit_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            dificuldade = "quit";
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
 
+        public String getDificuldade()
+        {
+            return dificuldade;
+        }
         private void groupBoxSelect_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Inicio_Load(object sender, EventArgs e)
         {
 
         }

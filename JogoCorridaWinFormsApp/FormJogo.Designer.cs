@@ -55,7 +55,7 @@
             picCarroCorrida.BackgroundImage = Properties.Resources.carroPNG;
             picCarroCorrida.BackgroundImageLayout = ImageLayout.Stretch;
             picCarroCorrida.Cursor = Cursors.No;
-            picCarroCorrida.Location = new Point(359, 369);
+            picCarroCorrida.Location = new Point(358, 377);
             picCarroCorrida.Margin = new Padding(3, 4, 3, 4);
             picCarroCorrida.Name = "picCarroCorrida";
             picCarroCorrida.Size = new Size(92, 71);
@@ -72,7 +72,7 @@
             pictureBoxEspantalho.BackColor = Color.Transparent;
             pictureBoxEspantalho.BackgroundImage = Properties.Resources.espantalho1;
             pictureBoxEspantalho.BackgroundImageLayout = ImageLayout.Stretch;
-            pictureBoxEspantalho.Location = new Point(745, 152);
+            pictureBoxEspantalho.Location = new Point(726, 202);
             pictureBoxEspantalho.Name = "pictureBoxEspantalho";
             pictureBoxEspantalho.Size = new Size(53, 64);
             pictureBoxEspantalho.TabIndex = 2;
@@ -81,11 +81,11 @@
             // pictureBoxHowl
             // 
             pictureBoxHowl.BackColor = Color.Transparent;
-            pictureBoxHowl.BackgroundImage = Properties.Resources.howl;
+            pictureBoxHowl.BackgroundImage = Properties.Resources.logo_principal_horizontal;
             pictureBoxHowl.BackgroundImageLayout = ImageLayout.Stretch;
-            pictureBoxHowl.Location = new Point(12, 29);
+            pictureBoxHowl.Location = new Point(-1, -3);
             pictureBoxHowl.Name = "pictureBoxHowl";
-            pictureBoxHowl.Size = new Size(106, 86);
+            pictureBoxHowl.Size = new Size(329, 86);
             pictureBoxHowl.TabIndex = 3;
             pictureBoxHowl.TabStop = false;
             // 
@@ -94,7 +94,7 @@
             pictureBoxKiki.BackColor = Color.Transparent;
             pictureBoxKiki.BackgroundImage = Properties.Resources.kiki;
             pictureBoxKiki.BackgroundImageLayout = ImageLayout.Stretch;
-            pictureBoxKiki.Location = new Point(680, 29);
+            pictureBoxKiki.Location = new Point(611, 222);
             pictureBoxKiki.Name = "pictureBoxKiki";
             pictureBoxKiki.Size = new Size(63, 54);
             pictureBoxKiki.TabIndex = 4;
@@ -103,7 +103,7 @@
             // labelTimer
             // 
             labelTimer.AutoSize = true;
-            labelTimer.Location = new Point(479, 29);
+            labelTimer.Location = new Point(593, 9);
             labelTimer.Name = "labelTimer";
             labelTimer.Size = new Size(119, 20);
             labelTimer.TabIndex = 5;
@@ -112,7 +112,7 @@
             // labelPontos
             // 
             labelPontos.AutoSize = true;
-            labelPontos.Location = new Point(127, 29);
+            labelPontos.Location = new Point(-1, 86);
             labelPontos.Name = "labelPontos";
             labelPontos.Size = new Size(139, 20);
             labelPontos.TabIndex = 6;
@@ -121,7 +121,7 @@
             // labelVidas
             // 
             labelVidas.AutoSize = true;
-            labelVidas.Location = new Point(479, 63);
+            labelVidas.Location = new Point(593, 43);
             labelVidas.Name = "labelVidas";
             labelVidas.Size = new Size(52, 20);
             labelVidas.TabIndex = 7;
@@ -130,7 +130,7 @@
             // labelPontosTempo
             // 
             labelPontosTempo.AutoSize = true;
-            labelPontosTempo.Location = new Point(127, 63);
+            labelPontosTempo.Location = new Point(-1, 120);
             labelPontosTempo.Name = "labelPontosTempo";
             labelPontosTempo.Size = new Size(162, 20);
             labelPontosTempo.TabIndex = 8;
@@ -139,7 +139,7 @@
             // labelPontosObstaculos
             // 
             labelPontosObstaculos.AutoSize = true;
-            labelPontosObstaculos.Location = new Point(127, 95);
+            labelPontosObstaculos.Location = new Point(-1, 152);
             labelPontosObstaculos.Name = "labelPontosObstaculos";
             labelPontosObstaculos.Size = new Size(164, 20);
             labelPontosObstaculos.TabIndex = 9;
@@ -172,7 +172,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackgroundImage = Properties.Resources.Gemini_Generated_Image_2qpyvz2qpyvz2qpy1;
+            BackgroundImage = Properties.Resources.PistaSolKamarao;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 500);
             Controls.Add(labelHeadingFase);
@@ -191,6 +191,7 @@
             Name = "FormJogo";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "JogoCorrida";
+            Load += FormJogo_Load;
             KeyDown += FormJogo_KeyDown;
             ((System.ComponentModel.ISupportInitialize)picCarroCorrida).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBoxEspantalho).EndInit();

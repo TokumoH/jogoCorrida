@@ -73,6 +73,26 @@ namespace JogoCorridaWinFormsApp.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Camarão_Kart__Corrida_ao_Entardecer {
+            get {
+                object obj = ResourceManager.GetObject("Camarão Kart_ Corrida ao Entardecer", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap camaraoKart {
+            get {
+                object obj = ResourceManager.GetObject("camaraoKart", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap carroBatido {
             get {
                 object obj = ResourceManager.GetObject("carroBatido", resourceCulture);
@@ -213,6 +233,26 @@ namespace JogoCorridaWinFormsApp.Properties {
         /// <summary>
         ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap logo_principal_horizontal {
+            get {
+                object obj = ResourceManager.GetObject("logo_principal_horizontal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logo_principal_simbolo {
+            get {
+                object obj = ResourceManager.GetObject("logo_principal_simbolo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap moeda {
             get {
                 object obj = ResourceManager.GetObject("moeda", resourceCulture);
@@ -286,6 +326,26 @@ namespace JogoCorridaWinFormsApp.Properties {
         internal static System.Drawing.Bitmap pistaLegal {
             get {
                 object obj = ResourceManager.GetObject("pistaLegal", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pistaNoiteKamarao {
+            get {
+                object obj = ResourceManager.GetObject("pistaNoiteKamarao", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta um recurso localizado do tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PistaSolKamarao {
+            get {
+                object obj = ResourceManager.GetObject("PistaSolKamarao", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

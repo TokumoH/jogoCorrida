@@ -7,6 +7,7 @@ namespace JogoCorridaWinFormsApp
     public partial class FormJogo : Form
     {
         Jogo jogo;
+        Inicio inicio = new Inicio();
         DateTime tempoUltimaMovimentaca = DateTime.Now;
         DateTime comeco = DateTime.Now;
         DateTime flagContagem = DateTime.Now;
@@ -18,9 +19,6 @@ namespace JogoCorridaWinFormsApp
         public FormJogo(String nivel)
         {
             DoubleBuffered = true;
-
-            InitializeComponent();
-            TocarSomCorrida();
             jogo = new Jogo
             {
                 Faixa1Inicio = 200,
@@ -31,6 +29,9 @@ namespace JogoCorridaWinFormsApp
                 Faixa3Fim = 510
 
             };
+            InitializeComponent();
+            TocarSomCorrida();
+
             jogo.Pontuacao = 0;
             jogo.YMaximo = 500;
             jogo.IniciaJogo();
@@ -88,6 +89,10 @@ namespace JogoCorridaWinFormsApp
             var j = 0;
             foreach (var ob in jogo.Obstaculos)
             {
+                if (i > 0)
+                {
+
+                }
                 if (ob.Largura >= 10)
                 {
                     int qual = ob.Identificacao;
@@ -142,7 +147,7 @@ namespace JogoCorridaWinFormsApp
                 AtualizarInterface();
                 if (jogo.PontosTempo >= 100 && jogo.FaseAtual == "Fase 1")
                 {
-                    await 
+                    await
                     TrocaFaseVisual();
                     TrocaFaseDificuldade();
                     jogo.FaseAtual = "Fase 2";
@@ -165,7 +170,6 @@ namespace JogoCorridaWinFormsApp
                 }
                 else
                 {
-
                     TocarSomCorrida();
                 }
             }
@@ -190,19 +194,19 @@ namespace JogoCorridaWinFormsApp
         }
         private void ChecarNivel(String vel)
         {
-            if (vel == "Facil")
+            if (vel == "easy")
             {
                 jogo.Vidas = 5;
                 jogo.Velocidade = 200;
                 jogo.numeroSorte = 150;
             }
-            else if (vel == "Medio")
+            else if (vel == "medium")
             {
                 jogo.Vidas = 2;
                 jogo.Velocidade = 100;
                 jogo.numeroSorte = 100;
             }
-            else if (vel == "Dificil")
+            else if (vel == "hard")
             {
                 jogo.Vidas = 1;
                 jogo.Velocidade = 50;
@@ -249,7 +253,7 @@ namespace JogoCorridaWinFormsApp
         private void TrocaFaseDificuldade()
         {
             jogo.Velocidade -= 20;
-            
+
         }
         private async Task TrocaFaseVisual()
         {
@@ -262,7 +266,7 @@ namespace JogoCorridaWinFormsApp
             labelHeadingFase.Text = "Fase 2";
             labelHeadingFase.TextAlign = ContentAlignment.MiddleCenter;
             await Task.Delay(1000);
-            BackgroundImage = Properties.Resources.fundoNoite;
+            BackgroundImage = Properties.Resources.pistaNoiteKamarao;
             await Task.Delay(1000);
             labelHeadingFase.Font = new Font("Palatino Linotype", 1F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelHeadingFase.Location = new Point(0, 0);
@@ -273,6 +277,11 @@ namespace JogoCorridaWinFormsApp
             labelHeadingFase.TextAlign = ContentAlignment.MiddleCenter;
             await Task.Delay(1000);
             timerJogo.Start();
+        }
+
+        private void FormJogo_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
