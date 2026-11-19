@@ -226,10 +226,11 @@ namespace jogoCorrida
                     
                 }
             }
-        }
+        } //alteração
+
         public int PontuacaoTempo(double tempoAtual)
         {
-            PontosTempo = (int)(tempoAtual*60) * 10;
+            PontosTempo = (int)(tempoAtual*50) * 10;
             return PontosTempo;
         }
         public void MovimentarObstaculos(List<Elemento> Props, bool tempo)
