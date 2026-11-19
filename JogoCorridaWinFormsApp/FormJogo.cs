@@ -145,7 +145,7 @@ namespace JogoCorridaWinFormsApp
                 jogo.MovimentarObstaculos(jogo.Obstaculos, flagTempo);
                 jogo.MovimentarObstaculos(jogo.Pontos, flagTempo);
                 AtualizarInterface();
-                if (jogo.PontosTempo >= 100 && jogo.FaseAtual == "Fase 1")
+                if (jogo.PontosTempo >= 200 && jogo.FaseAtual == "Fase 1")
                 {
                     await
                     TrocaFaseVisual();
